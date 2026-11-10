@@ -55,6 +55,7 @@ app.use(helmet({
         "http://localhost:*",
         "http://127.0.0.1:*",
         "https://atelier-general-pos.vercel.app",
+        "https://pozhuthu-pos.vercel.app",
         "https://atelier-general-pos.onrender.com",
         "https://api.razorpay.com",
         "https://*.digitaloceanspaces.com",
@@ -78,9 +79,12 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5174',
   'https://atelier-general-pos.vercel.app',
-  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
-  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim()) : [])
-].map(o => o.replace(/\/+$/, '').trim());
+  'https://pozhuthu-pos.vercel.app',
+  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : []),
+  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [])
+]
+  .map(o => String(o).replace(/^["'\s]+|["'\s]+$/g, '').replace(/\/+$/, '').trim())
+  .filter(Boolean);
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -90,6 +94,7 @@ app.use(cors({
     if (
       allowedOrigins.includes(cleanOrigin) ||
       /^https:\/\/atelier-general-pos(-[a-z0-9-]+)?\.vercel\.app$/.test(cleanOrigin) ||
+      /^https:\/\/pozhuthu-pos(-[a-z0-9-]+)?\.vercel\.app$/.test(cleanOrigin) ||
       (process.env.NODE_ENV !== 'production' && /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(cleanOrigin))
     ) {
       return callback(null, true);
