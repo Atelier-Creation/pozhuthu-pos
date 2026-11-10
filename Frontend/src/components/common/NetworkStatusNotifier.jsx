@@ -432,10 +432,16 @@ export function NetworkProvider({ children }) {
                   type="button"
                   disabled={isRetrying}
                   onClick={handleManualRetry}
-                  className="px-2.5 py-1.5 rounded-xl bg-white text-rose-700 hover:bg-rose-50 text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer disabled:opacity-60"
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer disabled:opacity-60"
+                  style={{
+                    backgroundColor: "#ffffff",
+                    color: "#9f1239",
+                  }}
                 >
-                  <RefreshCw size={13} className={isRetrying ? "animate-spin" : ""} />
-                  <span className="hidden sm:inline">{isRetrying ? "Checking..." : "Retry"}</span>
+                  <RefreshCw size={13} style={{ color: "#9f1239" }} className={isRetrying ? "animate-spin" : ""} />
+                  <span style={{ color: "#9f1239", fontWeight: 700 }} className="inline">
+                    {isRetrying ? "Checking..." : "Retry"}
+                  </span>
                 </button>
                 <button
                   type="button"
@@ -480,10 +486,16 @@ export function NetworkProvider({ children }) {
                   type="button"
                   disabled={isRetrying}
                   onClick={handleManualRetry}
-                  className="px-2.5 py-1.5 rounded-xl bg-white text-amber-800 hover:bg-amber-50 text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer disabled:opacity-60"
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer disabled:opacity-60"
+                  style={{
+                    backgroundColor: "#ffffff",
+                    color: "#92400e",
+                  }}
                 >
-                  <RefreshCw size={13} className={isRetrying ? "animate-spin" : ""} />
-                  <span className="hidden sm:inline">{isRetrying ? "Checking..." : "Retry"}</span>
+                  <RefreshCw size={13} style={{ color: "#92400e" }} className={isRetrying ? "animate-spin" : ""} />
+                  <span style={{ color: "#92400e", fontWeight: 700 }} className="inline">
+                    {isRetrying ? "Checking..." : "Retry"}
+                  </span>
                 </button>
                 <button
                   type="button"
