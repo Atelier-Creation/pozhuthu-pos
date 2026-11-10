@@ -1,0 +1,90 @@
+import { Routes, Route } from "react-router-dom";
+import BillingList from "./pages/billingList";
+import BillingForm from "./pages/billingForm";
+import CustomerBillingForm from "./pages/CustomerBillingForm";
+import CustomerBillCopy from "./pages/CustomerBillCopy";
+import SalesReport from "./pages/SalesReport";
+import SourceWiseReport from "./pages/SourceWiseReport";
+import CustomerAnalytics from "./pages/CustomerAnalytics";
+import POSPage from "./pages/POSPage";
+import WaiterPage from "./pages/WaiterPage";
+import DailyInventory from "../stock/pages/DailyInventory";
+import { List, PlusCircle, UserPlus, BarChart, ShoppingCart, MonitorSmartphone, Utensils, Users, ClipboardCheck, UtensilsCrossed } from "lucide-react";
+import ComingSoon from "./pages/ComingSoon";
+import { Tooltip } from "antd";
+import KOTKitchenDashboard from "./pages/KOTKitchenDashboard";
+import BusinessInsightsHub from "./pages/BusinessInsightsHub";
+import ProtectedRoute from "../context/ProtectedRoute";
+
+export const billingMenuItems = [
+  {
+    key: "/billing/list",
+    label: "Billing List",
+    icon: <List size={18} />,
+  },
+  {
+    key: "/billing/daily-inventory",
+    label: "Daily Stock & Inventory",
+    icon: <ClipboardCheck size={18} />,
+  },
+  {
+    key: "/billing/pos",
+    label: "POS Terminal",
+    icon: <MonitorSmartphone size={18} />,
+  },
+  {
+    key: "/billing/waiter",
+    label: "Waiter Service",
+    icon: <UtensilsCrossed size={18} />,
+  },
+  {
+    key: "/billing/kitchen",
+    label: "Kitchen Display",
+    icon: <Utensils size={18} />,
+  },
+  {
+    key: "/billing/customer-analytics",
+    label: "Customer Analytics",
+    icon: <Users size={18} />,
+  },
+  {
+    key: "/billing/self-checkout",
+    label: (
+      <Tooltip title="Coming Soon">
+        <span style={{ cursor: "not-allowed", color: "#999" }}>
+          Self Checkout
+        </span>
+      </Tooltip>
+    ),
+    icon: (
+      <Tooltip title="Coming Soon">
+        <ShoppingCart size={18} color="#999" />
+      </Tooltip>
+    ),
+    disabled: true, // This disables click visually via cursor
+    noRoute: true, // This disables click programmatically in Sidebar
+  }
+];
+
+const BillingRoutes = () => {
+  return (
+    <Routes>
+      <Route path="list" element={<BillingList />} />
+      <Route path="daily-inventory" element={<DailyInventory />} />
+      <Route path="add" element={<BillingForm />} />
+      <Route path="pos" element={<POSPage />} />
+      <Route path="waiter" element={<WaiterPage />} />
+      <Route path="kitchen" element={<KOTKitchenDashboard />} />
+      <Route path="edit/:id" element={<BillingForm />} />
+      <Route path="self-checkout" element={<ComingSoon />} />
+      <Route path="customer-copy" element={<CustomerBillCopy />} />
+      <Route path="customer-copy/:id" element={<CustomerBillCopy />} />
+      <Route path="reports" element={<SalesReport />} />
+      <Route path="source-wise-report" element={<SourceWiseReport />} />
+      <Route path="customer-analytics" element={<CustomerAnalytics />} />
+      <Route path="insights" element={<BusinessInsightsHub />} />
+    </Routes>
+  );
+};
+
+export default BillingRoutes;

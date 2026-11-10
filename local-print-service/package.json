@@ -1,0 +1,15 @@
+{
+  "name": "duch-local-print-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node supervisor.js",
+    "start:direct": "node server.js",
+    "test": "node test-service.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

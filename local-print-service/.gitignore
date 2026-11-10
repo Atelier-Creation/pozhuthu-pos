@@ -1,0 +1,4 @@
+node_modules
+.service-token
+data/
+*.log
