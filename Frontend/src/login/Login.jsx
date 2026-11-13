@@ -59,18 +59,21 @@ const FEATURES = [
   {
     id: "quick-billing",
     label: "Quick Billing",
+    mobileLabel: ["Quick", "Billing"],
     icon: Zap,
     slideIndex: 0,
   },
   {
     id: "inventory-control",
     label: "Inventory Control",
+    mobileLabel: ["Inventory", "Control"],
     icon: Boxes,
     slideIndex: 1,
   },
   {
     id: "sales-reports",
     label: "Sales Reports",
+    mobileLabel: ["Sales", "Reports"],
     icon: BarChart3,
     slideIndex: 2,
   },
@@ -238,47 +241,45 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen w-full font-sans">
-    
+    <div className="w-full font-sans ">
       {/* Main Container Card */}
       <motion.div
-        initial={{ opacity: 0, y: 20, scale: 0.98 }}
+        initial={{ opacity: 0, y: 16, scale: 0.99 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.55, ease: "easeOut" }}
-        className="w-full bg-white rounded-[24px] sm:rounded-[28px] overflow-hidden min-h-screen grid grid-cols-1 lg:grid-cols-12 relative z-10"
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full bg-white overflow-hidden !min-h-screen sm:min-h-0 grid grid-cols-1 md:grid-cols-12 relative z-10"
       >
-        {/* ================= LEFT PANEL ================= */}
-        <div className="lg:col-span-5 p-7 sm:p-10 md:p-12 flex flex-col justify-between bg-white relative z-20">
+        {/* ================= LEFT PANEL (FORM) ================= */}
+        <div className="md:col-span-6 lg:col-span-5 p-6 sm:p-8 md:p-8 lg:p-11 flex flex-col justify-between bg-white relative z-20">
           <div>
-            {/* Top Branding (Storefront Icon + Pozhuthu POS) */}
-            <div className="flex items-center gap-3.5 mb-7 sm:mb-9">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-50/80 border border-indigo-100/80 flex items-center justify-center shadow-xs shrink-0 overflow-hidden p-1.5">
+            {/* Top Branding (Pozhuthu POS) */}
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-6 sm:mb-8">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#FAF5EE] border border-[#F3E8D8] flex items-center justify-center shadow-xs shrink-0 overflow-hidden p-1.5">
                 <img
-                  src="/favicon/android-chrome-512x512.webp"
+                  src="/favicon/android-chrome-192x192.webp"
                   alt="Pozhuthu POS"
                   className="w-full h-full object-contain"
                   onError={(e) => {
-                    e.currentTarget.src = "/favicon/android-chrome-192x192.webp";
+                    e.currentTarget.src = "/favicon/android-chrome-512x512.webp";
                   }}
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="font-extrabold text-[19px] tracking-tight text-slate-900 leading-tight">
+              <div className="flex flex-col text-left">
+                <span className="font-extrabold text-lg sm:text-[19px] tracking-tight text-slate-900 leading-tight">
                   Pozhuthu POS
                 </span>
-                <span className="text-xs font-medium text-slate-400">
+                <span className="text-[11px] sm:text-xs font-medium text-slate-400">
                   Point of Sale Web Application
                 </span>
               </div>
             </div>
 
             {/* Welcome Heading */}
-            <div className="mb-6">
-              <h1 className="text-2xl sm:text-[28px] !font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                <span>Welcome Back</span>
-
+            <div className="mb-6 text-center md:text-left">
+              <h1 className="text-2xl sm:text-[28px] !font-extrabold text-slate-900 tracking-tight">
+                Welcome Back
               </h1>
-              <p className="text-slate-400 text-sm mt-1 font-normal">
+              <p className="text-slate-400 text-xs sm:text-sm mt-1 font-normal">
                 Sign in to your POS account
               </p>
             </div>
@@ -319,14 +320,14 @@ const Login = () => {
                     placeholder={
                       isMobileLogin ? "Enter mobile number" : "Enter your email"
                     }
-                    className="w-full pl-11 pr-11 py-3 rounded-xl border border-slate-200 bg-white hover:border-slate-300 focus:border-[#4F46E5] focus:ring-4 focus:ring-indigo-100/60 text-slate-800 text-sm transition-all duration-200 outline-none"
+                    className="w-full pl-10 pr-11 py-3 rounded-xl border border-slate-200 bg-white hover:border-slate-300 focus:border-[#4F46E5] focus:ring-4 focus:ring-indigo-100/60 text-slate-800 text-sm transition-all duration-200 outline-none"
                   />
 
                   {/* Toggle button inside input */}
                   <button
                     type="button"
                     onClick={toggleLoginMode}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition cursor-pointer"
                     title={isMobileLogin ? "Use Email" : "Use Phone"}
                   >
                     {isMobileLogin ? "Email" : "Phone"}
@@ -357,7 +358,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full pl-11 pr-11 py-3 rounded-xl border border-slate-200 bg-white hover:border-slate-300 focus:border-[#4F46E5] focus:ring-4 focus:ring-indigo-100/60 text-slate-800 text-sm transition-all duration-200 outline-none"
+                    className="w-full pl-10 pr-11 py-3 rounded-xl border border-slate-200 bg-white hover:border-slate-300 focus:border-[#4F46E5] focus:ring-4 focus:ring-indigo-100/60 text-slate-800 text-sm transition-all duration-200 outline-none"
                   />
 
                   <button
@@ -409,10 +410,119 @@ const Login = () => {
                 <span>{loading ? "Signing In..." : "Sign In"}</span>
               </motion.button>
             </form>
+
+            {/* ================= MOBILE SLIDER CARD (VISIBLE ONLY ON MOBILE < md) ================= */}
+            <div className="block md:hidden mt-6 pt-5 border-t border-slate-100">
+              <div className="bg-gradient-to-b from-[#F5F4FE] via-[#EFEBFD] to-[#E6E1FA]/80 rounded-3xl p-4 sm:p-5 border border-indigo-100/60 shadow-xs overflow-hidden">
+                {/* 3D Illustration */}
+                <div className="w-full flex items-center justify-center py-2">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentSlide}
+                      src={SLIDES[currentSlide].image}
+                      alt="POS Illustration"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.35 }}
+                      className="h-44 sm:h-52 w-auto object-contain drop-shadow-md select-none pointer-events-none"
+                    />
+                  </AnimatePresence>
+                </div>
+
+                {/* Heading & Supporting Text */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentSlide}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.25 }}
+                    className="text-center mt-2"
+                  >
+                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                      {SLIDES[currentSlide].heading}
+                    </h2>
+                    <p className="text-slate-600 text-xs mt-1 font-medium max-w-xs mx-auto leading-relaxed">
+                      {SLIDES[currentSlide].supportingText}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* 3 Feature Cards (Quick Billing, Inventory Control, Sales Reports) */}
+                <div className="grid grid-cols-3 gap-2 mt-4">
+                  {FEATURES.map((feat) => {
+                    const Icon = feat.icon;
+                    const isActive = SLIDES[currentSlide].activeFeature === feat.id;
+                    return (
+                      <button
+                        key={feat.id}
+                        type="button"
+                        onClick={() => setCurrentSlide(feat.slideIndex)}
+                        className={`flex flex-col items-center justify-center py-3 px-1.5 rounded-2xl transition-all duration-300 cursor-pointer ${
+                          isActive
+                            ? "bg-[#4F46E5] text-white shadow-md shadow-indigo-500/25 scale-[1.02]"
+                            : "bg-white text-slate-700 border border-slate-200/90 shadow-2xs hover:bg-slate-50"
+                        }`}
+                      >
+                        <Icon
+                          size={18}
+                          className={`mb-1.5 ${
+                            isActive ? "text-white" : "text-[#4F46E5]"
+                          }`}
+                        />
+                        <span
+                          className={`text-[11px] font-bold leading-tight text-center ${
+                            isActive ? "text-white" : "text-slate-800"
+                          }`}
+                        >
+                          {feat.mobileLabel ? (
+                            <>
+                              {feat.mobileLabel[0]}
+                              <br />
+                              {feat.mobileLabel[1]}
+                            </>
+                          ) : (
+                            feat.label
+                          )}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Centered Pagination Dots */}
+                <div className="flex items-center justify-center gap-1.5 mt-4">
+                  {SLIDES.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setCurrentSlide(idx)}
+                      className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                        currentSlide === idx
+                          ? "w-6 bg-[#4F46E5]"
+                          : "w-2 bg-slate-300 hover:bg-slate-400"
+                      }`}
+                      aria-label={`Slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Footer */}
+              <div className="mt-6 text-center">
+                <p className="text-xs text-slate-400 font-normal">
+                  Application Developed and maintained by
+                </p>
+                <p className="text-xs font-bold text-slate-800 mt-0.5 tracking-tight">
+                  Atelier Technology Solutions
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Footer Notice */}
-          <div className="mt-8 pt-5 border-t border-slate-100 text-center">
+          {/* Desktop/Tablet Footer Notice (hidden on mobile, visible on tablet & desktop) */}
+          <div className="hidden md:block mt-10 pt-5 border-t border-slate-100 text-center">
             <p className="text-xs text-slate-400 font-normal">
               Application Developed and maintained by
             </p>
@@ -422,9 +532,9 @@ const Login = () => {
           </div>
         </div>
 
-        {/* ================= RIGHT PANEL SLIDER ================= */}
+        {/* ================= RIGHT PANEL SLIDER (TABLET & DESKTOP md:) ================= */}
         <div
-          className="hidden lg:flex lg:col-span-7 relative overflow-hidden flex-col justify-end min-h-[620px] border-l border-slate-100 select-none bg-[#F4F3FF]"
+          className="hidden md:flex md:col-span-6 lg:col-span-7 relative overflow-hidden flex-col justify-end min-h-[580px] lg:min-h-[640px] border-l border-slate-100 select-none p-5 sm:p-6 lg:p-7 bg-[#F4F3FF]"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -432,10 +542,10 @@ const Login = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, scale: 1.03 }}
+              initial={{ opacity: 0, scale: 1.02 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: `url('${SLIDES[currentSlide].image}')`,
@@ -443,22 +553,19 @@ const Login = () => {
             />
           </AnimatePresence>
 
-          {/* Subtle gradient vignette to ensure crisp readability */}
-          {/* <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none" /> */}
-
-          {/* Floating Glassmorphism Content Card */}
-          <div className="relative z-10 p-6 xl:p-7 m-5 xl:m-6 rounded-3xl bg-white/90 backdrop-blur-xl border border-white/80 shadow-2xl shadow-indigo-950/15">
+          {/* Floating Glassmorphism Content Card at the bottom */}
+          <div className="relative z-10 p-5 lg:p-6 rounded-3xl bg-white/92 backdrop-blur-xl border border-white/80 shadow-2xl shadow-indigo-950/15">
             {/* Heading & Supporting Text */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
-                initial={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.3 }}
                 className="text-center"
               >
-                <h2 className="text-2xl xl:text-[25px] font-black text-slate-900 tracking-tight leading-snug">
+                <h2 className="text-xl lg:text-2xl font-black text-slate-900 tracking-tight leading-snug">
                   {SLIDES[currentSlide].heading}
                 </h2>
                 <p className="text-slate-600 text-xs sm:text-[13px] mt-1 font-medium max-w-md mx-auto leading-relaxed">
@@ -479,8 +586,8 @@ const Login = () => {
                     onClick={() => setCurrentSlide(feat.slideIndex)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer ${
                       isActive
-                        ? "bg-[#4F46E5] text-white shadow-md shadow-indigo-500/25 scale-[1.03]"
-                        : "bg-white/80 hover:bg-white text-slate-700 border border-slate-200/80 shadow-2xs hover:scale-[1.01]"
+                        ? "bg-[#4F46E5] text-white shadow-md shadow-indigo-500/25 scale-[1.02]"
+                        : "bg-white text-slate-700 border border-slate-200/90 shadow-2xs hover:bg-slate-50"
                     }`}
                   >
                     <Icon size={13} className={isActive ? "text-white" : "text-[#4F46E5]"} />
