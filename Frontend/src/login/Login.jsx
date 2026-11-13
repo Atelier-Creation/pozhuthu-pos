@@ -21,7 +21,7 @@ import {
 
 const SLIDES = [
   {
-    image: "/login-bg-1.png",
+    image: "/login-bg-1.webp",
     heading: (
       <>
         Run Your Business <span className="text-[#4F46E5] !font-bold">Smarter</span>
@@ -32,7 +32,7 @@ const SLIDES = [
     activeFeature: "quick-billing",
   },
   {
-    image: "/login-bg-2.png",
+    image: "/login-bg-2.webp",
     heading: (
       <>
         Run Your Business <span className="text-[#4F46E5] !font-bold">Smarter</span>
@@ -43,7 +43,7 @@ const SLIDES = [
     activeFeature: "inventory-control",
   },
   {
-    image: "/login-bg-3.png",
+    image: "/login-bg-3.webp",
     heading: (
       <>
         Run Your Business <span className="text-[#4F46E5] !font-bold">Smarter</span>
@@ -148,16 +148,47 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const payload = isMobileLogin ? { mobile, password } : { email, password };
+      const identifier = isMobileLogin ? mobile.trim() : email.trim();
+      const payload = {
+        identifier,
+        email: isMobileLogin ? undefined : email.trim(),
+        mobile: isMobileLogin ? mobile.trim() : undefined,
+        password,
+      };
 
-      const res = await axios.post(`${BASE_API}/auth/login`, payload, {
-        headers: { "Content-Type": "application/json" },
-      });
+      // Try /user/login first, with automatic fallback to /auth/login
+      let res;
+      try {
+        res = await axios.post(`${BASE_API}/user/login`, payload, {
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (err) {
+        if (err.response?.status === 404) {
+          res = await axios.post(`${BASE_API}/auth/login`, payload, {
+            headers: { "Content-Type": "application/json" },
+          });
+        } else {
+          throw err;
+        }
+      }
 
-      if (res.data?.success) {
-        message.success(res.data.message || "Login successful!");
-        const userData = res.data.data;
+      const resData = res.data;
+      const userData = resData?.user || resData?.data;
+      const token = resData?.token || resData?.data?.token;
+      const refreshToken = resData?.refreshToken || resData?.data?.refreshToken;
+
+      if (userData && token) {
+        // Save tokens and user session
+        localStorage.setItem("token", token);
+        if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        if (!rememberMe) {
+          sessionStorage.setItem("token", token);
+        }
+
         setUser(userData);
+        message.success(resData.message || "Login successful!");
 
         const userRole = userData?.role?.role_name?.toLowerCase();
         if (userRole === "admin" || userRole === "super admin") {
@@ -172,7 +203,7 @@ const Login = () => {
           navigate("/dashboard");
         }
       } else {
-        throw new Error("Invalid login response");
+        throw new Error(resData?.message || "Invalid login response");
       }
     } catch (error) {
       const respData = error.response?.data;
@@ -223,11 +254,11 @@ const Login = () => {
             <div className="flex items-center gap-3.5 mb-7 sm:mb-9">
               <div className="w-12 h-12 rounded-2xl bg-indigo-50/80 border border-indigo-100/80 flex items-center justify-center shadow-xs shrink-0 overflow-hidden p-1.5">
                 <img
-                  src="/favicon/android-chrome-512x512.png"
+                  src="/favicon/android-chrome-512x512.webp"
                   alt="Pozhuthu POS"
                   className="w-full h-full object-contain"
                   onError={(e) => {
-                    e.currentTarget.src = "/favicon/android-chrome-192x192.png";
+                    e.currentTarget.src = "/favicon/android-chrome-192x192.webp";
                   }}
                 />
               </div>
@@ -413,7 +444,7 @@ const Login = () => {
           </AnimatePresence>
 
           {/* Subtle gradient vignette to ensure crisp readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none" />
+          {/* <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none" /> */}
 
           {/* Floating Glassmorphism Content Card */}
           <div className="relative z-10 p-6 xl:p-7 m-5 xl:m-6 rounded-3xl bg-white/90 backdrop-blur-xl border border-white/80 shadow-2xl shadow-indigo-950/15">

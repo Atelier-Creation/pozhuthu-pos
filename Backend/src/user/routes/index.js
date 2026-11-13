@@ -13,6 +13,7 @@ router.use('/user', permissionRoutes);   // Permission routes
 router.use('/user', roleRoutes);
 router.use('/user', branchRoutes);       // Mount branch routes before user routes
 router.use('/user', userRoutes);         // User routes have /:id wildcard, so mount last
+router.use('/auth', userRoutes);         // Compatibility alias for /api/v1/auth/login, etc.
 
 
 

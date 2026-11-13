@@ -108,17 +108,20 @@ const userController = {
 
   async loginUser(req, res) {
     try {
+      if (!req.body.identifier) {
+        req.body.identifier = req.body.email || req.body.mobile || req.body.phone;
+      }
       const data = userLoginSchema.body.parse(req.body);
 
       if (!data.identifier || !data.password) {
-        return res.status(400).json({ error: "Identifier and password are required" });
+        return res.status(400).json({ status: "error", error: "Identifier and password are required" });
       }
 
       const result = await userService.loginUser(data);
-      res.json({ message: "Login success", ...result });
+      res.json({ status: "success", success: true, message: "Login success", ...result });
     } catch (err) {
       const errMsg = err?.message || err?.original?.message || err?.parent?.message || (typeof err === "string" ? err : "Invalid credentials or login failed");
-      res.status(400).json({ status: "error", message: errMsg, error: errMsg });
+      res.status(400).json({ status: "error", success: false, message: errMsg, error: errMsg });
     }
   },
 
