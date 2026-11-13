@@ -413,99 +413,89 @@ const Login = () => {
 
             {/* ================= MOBILE SLIDER CARD (VISIBLE ONLY ON MOBILE < md) ================= */}
             <div className="block md:hidden mt-6 pt-5 border-t border-slate-100">
-              <div className="bg-gradient-to-b from-[#F5F4FE] via-[#EFEBFD] to-[#E6E1FA]/80 rounded-3xl p-4 sm:p-5 border border-indigo-100/60 shadow-xs overflow-hidden">
-                {/* 3D Illustration */}
-                <div className="w-full flex items-center justify-center py-2">
+              <div
+                className="relative bg-gradient-to-b from-[#F5F4FE] via-[#EFEBFD] to-[#E6E1FA]/80 bg-cover bg-right bg-no-repeat rounded-3xl p-4 sm:p-5 border border-indigo-100/60 shadow-xs overflow-hidden"
+                style={{
+                  backgroundImage: `url('${SLIDES[currentSlide].image}')`,
+                }}
+              >
+                {/* Backdrop Overlay for enhanced text readability and contrast */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-white/10 to-transparent backdrop-blur-[1px] pointer-events-none" />
+
+                <div className="relative z-10">
+                  {/* Heading & Supporting Text */}
                   <AnimatePresence mode="wait">
-                    <motion.img
+                    <motion.div
                       key={currentSlide}
-                      src={SLIDES[currentSlide].image}
-                      alt="POS Illustration"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.35 }}
-                      className="h-44 sm:h-52 w-auto object-contain drop-shadow-md select-none pointer-events-none"
-                    />
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.25 }}
+                      className="text-center mt-1"
+                    >
+                      <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                        {SLIDES[currentSlide].heading}
+                      </h2>
+                      <p className="text-slate-700 text-xs mt-1 font-semibold max-w-xs mx-auto leading-relaxed">
+                        {SLIDES[currentSlide].supportingText}
+                      </p>
+                    </motion.div>
                   </AnimatePresence>
-                </div>
 
-                {/* Heading & Supporting Text */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentSlide}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-center mt-2"
-                  >
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight leading-snug">
-                      {SLIDES[currentSlide].heading}
-                    </h2>
-                    <p className="text-slate-600 text-xs mt-1 font-medium max-w-xs mx-auto leading-relaxed">
-                      {SLIDES[currentSlide].supportingText}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* 3 Feature Cards (Quick Billing, Inventory Control, Sales Reports) */}
-                <div className="grid grid-cols-3 gap-2 mt-4">
-                  {FEATURES.map((feat) => {
-                    const Icon = feat.icon;
-                    const isActive = SLIDES[currentSlide].activeFeature === feat.id;
-                    return (
-                      <button
-                        key={feat.id}
-                        type="button"
-                        onClick={() => setCurrentSlide(feat.slideIndex)}
-                        className={`flex flex-col items-center justify-center py-3 px-1.5 rounded-2xl transition-all duration-300 cursor-pointer ${
-                          isActive
+                  {/* 3 Feature Cards (Quick Billing, Inventory Control, Sales Reports) */}
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    {FEATURES.map((feat) => {
+                      const Icon = feat.icon;
+                      const isActive = SLIDES[currentSlide].activeFeature === feat.id;
+                      return (
+                        <button
+                          key={feat.id}
+                          type="button"
+                          onClick={() => setCurrentSlide(feat.slideIndex)}
+                          className={`flex flex-col items-center justify-center py-3 px-1.5 rounded-2xl transition-all duration-300 cursor-pointer ${isActive
                             ? "bg-[#4F46E5] text-white shadow-md shadow-indigo-500/25 scale-[1.02]"
-                            : "bg-white text-slate-700 border border-slate-200/90 shadow-2xs hover:bg-slate-50"
-                        }`}
-                      >
-                        <Icon
-                          size={18}
-                          className={`mb-1.5 ${
-                            isActive ? "text-white" : "text-[#4F46E5]"
-                          }`}
-                        />
-                        <span
-                          className={`text-[11px] font-bold leading-tight text-center ${
-                            isActive ? "text-white" : "text-slate-800"
-                          }`}
+                            : "bg-white/95 text-slate-800 border border-slate-200/90 shadow-2xs hover:bg-white"
+                            }`}
                         >
-                          {feat.mobileLabel ? (
-                            <>
-                              {feat.mobileLabel[0]}
-                              <br />
-                              {feat.mobileLabel[1]}
-                            </>
-                          ) : (
-                            feat.label
-                          )}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                          <Icon
+                            size={18}
+                            className={`mb-1.5 ${isActive ? "text-white" : "text-[#4F46E5]"
+                              }`}
+                          />
+                          <span
+                            className={`text-[11px] font-bold leading-tight text-center ${isActive ? "text-white" : "text-slate-800"
+                              }`}
+                          >
+                            {feat.mobileLabel ? (
+                              <>
+                                {feat.mobileLabel[0]}
+                                <br />
+                                {feat.mobileLabel[1]}
+                              </>
+                            ) : (
+                              feat.label
+                            )}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
 
-                {/* Centered Pagination Dots */}
-                <div className="flex items-center justify-center gap-1.5 mt-4">
-                  {SLIDES.map((_, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setCurrentSlide(idx)}
-                      className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                        currentSlide === idx
+                  {/* Centered Pagination Dots */}
+                  <div className="flex items-center justify-center gap-1.5 mt-4">
+                    {SLIDES.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setCurrentSlide(idx)}
+                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${currentSlide === idx
                           ? "w-6 bg-[#4F46E5]"
                           : "w-2 bg-slate-300 hover:bg-slate-400"
-                      }`}
-                      aria-label={`Slide ${idx + 1}`}
-                    />
-                  ))}
+                          }`}
+                        aria-label={`Slide ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -584,11 +574,10 @@ const Login = () => {
                     key={feat.id}
                     type="button"
                     onClick={() => setCurrentSlide(feat.slideIndex)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer ${
-                      isActive
-                        ? "bg-[#4F46E5] text-white shadow-md shadow-indigo-500/25 scale-[1.02]"
-                        : "bg-white text-slate-700 border border-slate-200/90 shadow-2xs hover:bg-slate-50"
-                    }`}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer ${isActive
+                      ? "bg-[#4F46E5] text-white shadow-md shadow-indigo-500/25 scale-[1.02]"
+                      : "bg-white text-slate-700 border border-slate-200/90 shadow-2xs hover:bg-slate-50"
+                      }`}
                   >
                     <Icon size={13} className={isActive ? "text-white" : "text-[#4F46E5]"} />
                     <span>{feat.label}</span>
@@ -606,11 +595,10 @@ const Login = () => {
                     key={idx}
                     type="button"
                     onClick={() => setCurrentSlide(idx)}
-                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                      currentSlide === idx
-                        ? "w-6 bg-[#4F46E5]"
-                        : "w-2 bg-slate-300 hover:bg-slate-400"
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${currentSlide === idx
+                      ? "w-6 bg-[#4F46E5]"
+                      : "w-2 bg-slate-300 hover:bg-slate-400"
+                      }`}
                     aria-label={`Slide ${idx + 1}`}
                   />
                 ))}
