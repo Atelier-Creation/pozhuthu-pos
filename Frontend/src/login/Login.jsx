@@ -330,7 +330,7 @@ const Login = () => {
                     className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition cursor-pointer"
                     title={isMobileLogin ? "Use Email" : "Use Phone"}
                   >
-                    {isMobileLogin ? "Email" : "Phone"}
+                    {isMobileLogin ? <Mail size={17} /> : <Phone size={17} />}
                   </button>
                 </div>
 
